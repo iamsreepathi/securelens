@@ -24,7 +24,6 @@ services:
       - "6379:6379"
     networks:
       - laravel
-
   mailhog:
     image: mailhog/mailhog:latest
     ports:

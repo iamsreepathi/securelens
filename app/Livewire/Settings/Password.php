@@ -4,6 +4,7 @@ namespace App\Livewire\Settings;
 
 use App\Concerns\PasswordValidationRules;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
@@ -35,6 +36,10 @@ class Password extends Component
 
         Auth::user()->update([
             'password' => $validated['password'],
+        ]);
+
+        Log::info('security.password.updated', [
+            'user_id' => auth()->id(),
         ]);
 
         $this->reset('current_password', 'password', 'password_confirmation');

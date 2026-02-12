@@ -57,3 +57,14 @@ test('password can be reset with valid token', function () {
         return true;
     });
 });
+
+test('password reset link requests are rate limited', function () {
+    $user = User::factory()->create();
+
+    $this->post(route('password.request'), ['email' => $user->email])
+        ->assertSessionHasNoErrors();
+
+    $response = $this->post(route('password.request'), ['email' => $user->email]);
+
+    $response->assertSessionHasErrors(['email']);
+});

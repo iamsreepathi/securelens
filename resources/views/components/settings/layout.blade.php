@@ -3,6 +3,8 @@
         <flux:navlist aria-label="{{ __('Settings') }}">
             <flux:navlist.item :href="route('profile.edit')" wire:navigate>{{ __('Profile') }}</flux:navlist.item>
             <flux:navlist.item :href="route('user-password.edit')" wire:navigate>{{ __('Password') }}</flux:navlist.item>
+            <flux:navlist.item :href="route('sessions.edit')" wire:navigate>{{ __('Sessions') }}</flux:navlist.item>
+            <flux:navlist.item :href="route('billing.edit')" wire:navigate>{{ __('Billing') }}</flux:navlist.item>
             @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
                 <flux:navlist.item :href="route('two-factor.show')" wire:navigate>{{ __('Two-Factor Auth') }}</flux:navlist.item>
             @endif

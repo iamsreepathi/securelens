@@ -1,6 +1,8 @@
 <?php
 
+use Monolog\Formatter\JsonFormatter;
 use Monolog\Handler\NullHandler;
+use Monolog\Handler\RotatingFileHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
 use Monolog\Processor\PsrLogMessageProcessor;
@@ -116,6 +118,18 @@ return [
             'driver' => 'errorlog',
             'level' => env('LOG_LEVEL', 'debug'),
             'replace_placeholders' => true,
+        ],
+
+        'ingestion' => [
+            'driver' => 'monolog',
+            'level' => env('LOG_LEVEL', 'info'),
+            'handler' => RotatingFileHandler::class,
+            'handler_with' => [
+                'filename' => storage_path('logs/ingestion.log'),
+                'maxFiles' => env('LOG_DAILY_DAYS', 14),
+            ],
+            'formatter' => JsonFormatter::class,
+            'processors' => [PsrLogMessageProcessor::class],
         ],
 
         'null' => [

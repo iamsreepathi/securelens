@@ -3,12 +3,15 @@
 use App\Livewire\Settings\Password;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Livewire\Livewire;
 
 test('password can be updated', function () {
     $user = User::factory()->create([
         'password' => Hash::make('password'),
     ]);
+
+    Log::spy();
 
     $this->actingAs($user);
 
@@ -21,6 +24,11 @@ test('password can be updated', function () {
     $response->assertHasNoErrors();
 
     expect(Hash::check('new-password', $user->refresh()->password))->toBeTrue();
+
+    Log::shouldHaveReceived('info')->once()->with(
+        'security.password.updated',
+        ['user_id' => $user->id],
+    );
 });
 
 test('correct password must be provided to update password', function () {

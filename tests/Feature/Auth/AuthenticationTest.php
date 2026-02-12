@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Str;
 use Laravel\Fortify\Features;
 
 test('login screen can be rendered', function () {
@@ -64,4 +66,25 @@ test('users can logout', function () {
 
     $response->assertRedirect(route('home'));
     $this->assertGuest();
+});
+
+test('login requests are rate limited after too many failed attempts', function () {
+    $user = User::factory()->create();
+    $throttleKey = Str::transliterate(Str::lower($user->email).'|127.0.0.1');
+
+    RateLimiter::clear($throttleKey);
+
+    for ($attempt = 0; $attempt < 5; $attempt++) {
+        $this->from(route('login'))->post(route('login.store'), [
+            'email' => $user->email,
+            'password' => 'wrong-password',
+        ]);
+    }
+
+    $this->from(route('login'))->post(route('login.store'), [
+        'email' => $user->email,
+        'password' => 'wrong-password',
+    ]);
+
+    expect(RateLimiter::tooManyAttempts($throttleKey, 5))->toBeTrue();
 });

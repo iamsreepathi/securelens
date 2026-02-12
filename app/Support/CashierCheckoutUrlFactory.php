@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Support;
+
+use App\Models\User;
+
+class CashierCheckoutUrlFactory
+{
+    public function createForSubscription(User $user, string $priceId, string $successUrl, string $cancelUrl): string
+    {
+        $checkout = $user->newSubscription('default', $priceId)->checkout([
+            'success_url' => $successUrl,
+            'cancel_url' => $cancelUrl,
+        ]);
+
+        return (string) $checkout->url;
+    }
+}

@@ -93,6 +93,25 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Queue Worker Reliability
+    |--------------------------------------------------------------------------
+    |
+    | These values define baseline retry behavior for workers and jobs. The
+    | retry and backoff strategy is also consumed by queue jobs that opt-in
+    | to centralized defaults.
+    |
+    */
+
+    'worker' => [
+        'tries' => (int) env('QUEUE_WORKER_TRIES', 5),
+        'backoff' => array_map(
+            static fn (string $seconds): int => (int) trim($seconds),
+            explode(',', (string) env('QUEUE_WORKER_BACKOFF', '1,5,10'))
+        ),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Job Batching
     |--------------------------------------------------------------------------
     |
@@ -124,6 +143,22 @@ return [
         'driver' => env('QUEUE_FAILED_DRIVER', 'database-uuids'),
         'database' => env('DB_CONNECTION', 'sqlite'),
         'table' => 'failed_jobs',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Dead Letter Queue Storage
+    |--------------------------------------------------------------------------
+    |
+    | Unrecoverable job failures are recorded for triage and replay workflows.
+    | This path complements Laravel's failed_jobs table with normalized fields
+    | that are easier to filter operationally.
+    |
+    */
+
+    'dead_letter' => [
+        'enabled' => (bool) env('QUEUE_DEAD_LETTER_ENABLED', true),
+        'table' => env('QUEUE_DEAD_LETTER_TABLE', 'dead_letter_jobs'),
     ],
 
 ];

@@ -1,4 +1,4 @@
 interface:
   display_name: "Development Loop"
-  short_description: "Process GitHub issues one by one"
-  default_prompt: "Use $development to enable auto edits, preflight-commit uncommitted repo changes, then process GitHub issues one by one from in progress to ready with Laravel Boost best practices."
+  short_description: "Process GitHub issues epic-by-epic"
+  default_prompt: "Use $development to enable auto edits, preflight-commit uncommitted repo changes, then process EPIC issues one by one (title starts with EPIC), completing all child tasks under each epic from in progress to ready before moving to the next epic."

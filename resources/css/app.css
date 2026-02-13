@@ -57,10 +57,26 @@
 }
 
 @layer theme {
+    :root {
+        --dashboard-text-primary: #111827;
+        --dashboard-text-secondary: #334155;
+        --dashboard-text-muted: #475569;
+        --dashboard-surface: rgba(255, 255, 255, 0.92);
+        --dashboard-surface-strong: rgba(248, 250, 252, 0.96);
+        --dashboard-border: rgba(148, 163, 184, 0.45);
+    }
+
     .dark {
         --color-accent: var(--color-white);
         --color-accent-content: var(--color-white);
         --color-accent-foreground: var(--color-neutral-800);
+
+        --dashboard-text-primary: #ffffff;
+        --dashboard-text-secondary: #ecf3ff;
+        --dashboard-text-muted: #d9e6ff;
+        --dashboard-surface: rgba(15, 23, 42, 0.7);
+        --dashboard-surface-strong: rgba(9, 15, 30, 0.9);
+        --dashboard-border: rgba(113, 127, 156, 0.62);
     }
 }
 
@@ -116,6 +132,55 @@ select:focus[data-flux-control] {
 @layer components {
     .surface-panel {
         @apply rounded-2xl border border-zinc-700/70 bg-zinc-900/65 shadow-xl shadow-zinc-950/40 backdrop-blur;
+    }
+
+    .dashboard-panel {
+        @apply rounded-2xl border p-6 shadow-sm shadow-zinc-200/60 backdrop-blur dark:shadow-zinc-950/35;
+        border-color: var(--dashboard-border);
+        background-color: var(--dashboard-surface);
+    }
+
+    .dashboard-title {
+        color: var(--dashboard-text-primary);
+    }
+
+    .dashboard-copy {
+        color: var(--dashboard-text-secondary);
+    }
+
+    .dashboard-muted {
+        color: var(--dashboard-text-muted);
+    }
+
+    .dashboard-table-wrap {
+        @apply mt-4 overflow-x-auto rounded-xl border;
+        border-color: var(--dashboard-border);
+        background-color: color-mix(in oklab, var(--dashboard-surface-strong) 90%, transparent);
+    }
+
+    .dashboard-table-head {
+        @apply px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-wide sm:text-xs;
+        color: var(--dashboard-text-secondary);
+    }
+
+    .dashboard-table-head-row {
+        background-color: var(--dashboard-surface-strong);
+    }
+
+    .dashboard-table-body {
+        @apply divide-y;
+        border-color: color-mix(in oklab, var(--dashboard-border) 75%, transparent);
+        background-color: color-mix(in oklab, var(--dashboard-surface-strong) 86%, transparent);
+    }
+
+    .dashboard-table-cell {
+        @apply px-4 py-3 text-xs sm:text-sm;
+        color: var(--dashboard-text-secondary);
+    }
+
+    .dashboard-table-cell-strong {
+        @apply px-4 py-3 text-xs sm:text-sm;
+        color: var(--dashboard-text-primary);
     }
 
     .heading-display {

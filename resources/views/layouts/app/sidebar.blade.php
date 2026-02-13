@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-[radial-gradient(60rem_24rem_at_-5%_-10%,rgba(16,185,129,0.18),transparent),radial-gradient(45rem_20rem_at_105%_0%,rgba(59,130,246,0.18),transparent),linear-gradient(180deg,#09090b_0%,#111827_65%,#0f172a_100%)] text-zinc-100">
-        <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-700/70 bg-zinc-950/85 backdrop-blur-md">
+    <body class="min-h-screen bg-white text-zinc-900 dark:bg-[radial-gradient(60rem_24rem_at_-5%_-10%,rgba(16,185,129,0.18),transparent),radial-gradient(45rem_20rem_at_105%_0%,rgba(59,130,246,0.18),transparent),linear-gradient(180deg,#09090b_0%,#111827_65%,#0f172a_100%)] dark:text-zinc-100">
+        <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-white/95 backdrop-blur-md dark:border-zinc-700/70 dark:bg-zinc-950/85">
             <flux:sidebar.header>
                 <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
                 <flux:sidebar.collapse class="lg:hidden" />
@@ -52,13 +52,13 @@
 
             <flux:spacer />
 
-            <flux:sidebar.nav class="border-t border-zinc-800/80 pt-3">
-                <flux:sidebar.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                    {{ __('Repository') }}
+            <flux:sidebar.nav class="border-t border-zinc-200/80 pt-3 dark:border-zinc-800/80">
+                <flux:sidebar.item icon="home" :href="route('home')" wire:navigate>
+                    {{ __('SecureLens Site') }}
                 </flux:sidebar.item>
 
-                <flux:sidebar.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                    {{ __('Documentation') }}
+                <flux:sidebar.item icon="credit-card" :href="route('billing.edit')" wire:navigate>
+                    {{ __('Billing') }}
                 </flux:sidebar.item>
             </flux:sidebar.nav>
 
@@ -66,7 +66,7 @@
         </flux:sidebar>
 
         <!-- Mobile User Menu -->
-        <flux:header class="border-b border-zinc-800/80 bg-zinc-950/80 backdrop-blur-md lg:hidden">
+        <flux:header class="border-b border-zinc-200/80 bg-white/95 backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-950/80 lg:hidden">
             <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 
             <flux:spacer />

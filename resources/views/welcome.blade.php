@@ -24,10 +24,12 @@
             <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(50rem_30rem_at_15%_-5%,rgba(16,185,129,0.28),transparent),radial-gradient(42rem_28rem_at_85%_5%,rgba(59,130,246,0.22),transparent),linear-gradient(180deg,#09090b_0%,#0f172a_45%,#111827_100%)]"></div>
             <div class="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.08),transparent)]"></div>
 
-            <div class="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col px-6 py-8 sm:px-10 lg:px-14">
+            <div class="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col px-6 py-8 sm:px-10 lg:max-w-7xl lg:px-14 2xl:max-w-[90rem]">
                 <header class="flex items-center justify-between">
                     <a href="{{ route('home') }}" class="inline-flex items-center gap-3">
-                        <span class="inline-flex size-9 items-center justify-center rounded-xl border border-emerald-300/40 bg-emerald-400/15 text-sm font-semibold text-emerald-200">SL</span>
+                        <span class="inline-flex size-9 items-center justify-center rounded-xl border border-emerald-300/40 bg-emerald-400/15 text-emerald-200">
+                            <x-app-logo-icon class="size-5 fill-current" />
+                        </span>
                         <span class="text-base font-semibold tracking-wide text-zinc-100">{{ config('app.name') }}</span>
                     </a>
 

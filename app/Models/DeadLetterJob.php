@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class DeadLetterJob extends Model
 {
@@ -23,6 +24,11 @@ class DeadLetterJob extends Model
         'queue',
         'job_uuid',
         'job_name',
+        'project_id',
+        'ingestion_run_id',
+        'snapshot_id',
+        'source',
+        'attempt',
         'payload',
         'exception',
         'failed_at',
@@ -37,5 +43,13 @@ class DeadLetterJob extends Model
             'payload' => 'array',
             'failed_at' => 'immutable_datetime',
         ];
+    }
+
+    /**
+     * @return BelongsTo<Project, $this>
+     */
+    public function project(): BelongsTo
+    {
+        return $this->belongsTo(Project::class);
     }
 }

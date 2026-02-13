@@ -1,6 +1,7 @@
 <?php
 
 use App\Jobs\ProcessQueuedTask;
+use App\Jobs\ProcessVulnerabilityIngestionRun;
 use App\Support\QueueFailureRecorder;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
@@ -10,9 +11,17 @@ test('retry and backoff strategy is centrally defined and consumed by jobs', fun
     config()->set('queue.worker.backoff', [2, 8, 30]);
 
     $job = new ProcessQueuedTask;
+    $ingestionJob = new ProcessVulnerabilityIngestionRun(
+        ingestionRunId: (string) Str::uuid(),
+        source: 'osv',
+        ingestedAt: now()->toIso8601String(),
+        vulnerabilities: [],
+    );
 
     expect($job->tries)->toBe(4);
     expect($job->backoff())->toBe([2, 8, 30]);
+    expect($ingestionJob->tries)->toBe(4);
+    expect($ingestionJob->backoff())->toBe([2, 8, 30]);
 });
 
 test('dead-letter storage schema supports operational triage', function () {
@@ -23,6 +32,11 @@ test('dead-letter storage schema supports operational triage', function () {
         'queue',
         'job_uuid',
         'job_name',
+        'project_id',
+        'ingestion_run_id',
+        'snapshot_id',
+        'source',
+        'attempt',
         'payload',
         'exception',
         'failed_at',

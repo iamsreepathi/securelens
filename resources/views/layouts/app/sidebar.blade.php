@@ -15,7 +15,39 @@
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
+
+                    <flux:sidebar.item icon="users" :href="route('teams.index')" :current="request()->routeIs('teams.*')" wire:navigate>
+                        {{ __('Teams') }}
+                    </flux:sidebar.item>
+
+                    <flux:sidebar.item icon="folder" :href="route('projects.index')" :current="request()->routeIs('projects.*')" wire:navigate>
+                        {{ __('Projects') }}
+                    </flux:sidebar.item>
+
+                    <flux:sidebar.item icon="shield-exclamation" :href="route('vulnerabilities.index')" :current="request()->routeIs('vulnerabilities.*')" wire:navigate>
+                        {{ __('Vulnerabilities') }}
+                    </flux:sidebar.item>
                 </flux:sidebar.group>
+
+                @if (auth()->user()->isAdmin())
+                    <flux:sidebar.group :heading="__('Admin')" class="grid">
+                        <flux:sidebar.item icon="chart-bar" :href="route('admin.dashboard')" :current="request()->routeIs('admin.dashboard')" wire:navigate>
+                            {{ __('Operations') }}
+                        </flux:sidebar.item>
+
+                        <flux:sidebar.item icon="exclamation-triangle" :href="route('admin.ingestion-failures.index')" :current="request()->routeIs('admin.ingestion-failures.*')" wire:navigate>
+                            {{ __('Ingestion Failures') }}
+                        </flux:sidebar.item>
+
+                        <flux:sidebar.item icon="clipboard-document-list" :href="route('admin.audit-logs.index')" :current="request()->routeIs('admin.audit-logs.*')" wire:navigate>
+                            {{ __('Audit Logs') }}
+                        </flux:sidebar.item>
+
+                        <flux:sidebar.item icon="book-open-text" :href="route('admin.runbooks.index')" :current="request()->routeIs('admin.runbooks.*')" wire:navigate>
+                            {{ __('Runbooks') }}
+                        </flux:sidebar.item>
+                    </flux:sidebar.group>
+                @endif
             </flux:sidebar.nav>
 
             <flux:spacer />

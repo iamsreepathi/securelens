@@ -3,14 +3,14 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-white dark:bg-zinc-800">
-        <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
+    <body class="min-h-screen bg-[radial-gradient(60rem_24rem_at_-5%_-10%,rgba(16,185,129,0.18),transparent),radial-gradient(45rem_20rem_at_105%_0%,rgba(59,130,246,0.18),transparent),linear-gradient(180deg,#09090b_0%,#111827_65%,#0f172a_100%)] text-zinc-100">
+        <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-700/70 bg-zinc-950/85 backdrop-blur-md">
             <flux:sidebar.header>
                 <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
                 <flux:sidebar.collapse class="lg:hidden" />
             </flux:sidebar.header>
 
-            <flux:sidebar.nav>
+            <flux:sidebar.nav class="gap-1.5">
                 <flux:sidebar.group :heading="__('Platform')" class="grid">
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
@@ -52,7 +52,7 @@
 
             <flux:spacer />
 
-            <flux:sidebar.nav>
+            <flux:sidebar.nav class="border-t border-zinc-800/80 pt-3">
                 <flux:sidebar.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
                     {{ __('Repository') }}
                 </flux:sidebar.item>
@@ -66,7 +66,7 @@
         </flux:sidebar>
 
         <!-- Mobile User Menu -->
-        <flux:header class="lg:hidden">
+        <flux:header class="border-b border-zinc-800/80 bg-zinc-950/80 backdrop-blur-md lg:hidden">
             <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 
             <flux:spacer />
